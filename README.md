@@ -19,7 +19,7 @@ Features request validation via custom PHP attributes, DTOs, and repository patt
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/suziria-test.git
+git clone https://github.com/pkolesnikov/suziria-test.git
 cd suziria-test
 ```
 
