@@ -8,3 +8,4 @@ RUN apt-get update && apt-get install -y \
 
 COPY php.ini /usr/local/etc/php/
 RUN a2enmod rewrite
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer

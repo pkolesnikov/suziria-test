@@ -4,8 +4,11 @@ services:
       context: ./php
     container_name: suziria_test
     volumes:
-      - ./src:/var/www/html
-      - ./public:/var/www/html/public
+      - ./public:/var/www/html             
+      - ./src:/var/www/src                   
+      - ./vendor:/var/www/vendor             
+      - ./composer.json:/var/www/composer.json  
+      - ./composer.lock:/var/www/composer.lock 
     ports:
       - "8080:80"
     depends_on:
