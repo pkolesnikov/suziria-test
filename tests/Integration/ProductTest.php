@@ -2,6 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 use GuzzleHttp\Client;
+use App\Enum\Category;
 
 final class ProductTest extends TestCase
 {

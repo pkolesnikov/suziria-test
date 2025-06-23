@@ -5,6 +5,7 @@ namespace App\DTO;
 use App\Attributes\Required;
 use App\Attributes\MinLength;
 use App\Attributes\IsNumeric;
+use App\Enum\Category;
 
 readonly class ProductDTO
 {
@@ -16,12 +17,12 @@ readonly class ProductDTO
     public float $price;
 
     #[Required]
-    public string $category;
+    public Category $category;
 
     #[Required]
     public array $attributes;
 
-    public function __construct(string $name, float $price, string $category, array $attributes)
+    public function __construct(string $name, float $price, Category $category, array $attributes)
     {
         $this->name = $name;
         $this->price = $price;

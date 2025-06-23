@@ -23,7 +23,7 @@ class PostgresProductRepository
             'id' => $id,
             'name' => $dto->name,
             'price' => $dto->price,
-            'category' => $dto->category,
+            'category' => $dto->category->value,
             'attributes' => json_encode($dto->attributes),
         ]);
 

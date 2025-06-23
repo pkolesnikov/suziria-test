@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\DTO\ProductDTO;
 use App\Repository\PostgresProductRepository;
 use App\Validator\DTOValidator;
+use App\Enum\Category;
 
 class ProductController
 {
@@ -12,11 +13,19 @@ class ProductController
     {
         $input = json_decode(file_get_contents('php://input'), true);
 
+        $category = Category::tryFrom($input['category'] ?? '');
+
+        if (!$category) {
+            http_response_code(422);
+            echo json_encode(['error' => 'Invalid category']);
+            return;
+        }
+
         try {
             $dto = new ProductDTO(
                 $input['name'] ?? '',
                 $input['price'] ?? null,
-                $input['category'] ?? '',
+                $category,
                 $input['attributes'] ?? []
             );
 
