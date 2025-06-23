@@ -3,8 +3,11 @@
 use App\Database;
 
 require_once __DIR__ . '/../vendor/autoload.php';
-
-$db = (new Database())->getConnection();
+$env = parse_ini_file(__DIR__ . '/../.env');
+foreach ($env as $key => $value) {
+    $_ENV[$key] = $value;
+}
+$db = Database::getConnection();
 
 echo "Running DB migrations...\n";
 
