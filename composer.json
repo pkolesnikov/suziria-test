@@ -1,0 +1,11 @@
+{
+  "name": "suziria/test",
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "require": {
+    "ramsey/uuid": "^4.0"
+  }
+}

@@ -1,0 +1,28 @@
+services:
+  app:
+    build:
+      context: ./php
+    container_name: suziria_test
+    volumes:
+      - ./src:/var/www/html
+      - ./public:/var/www/html/public
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    container_name: suziria_db
+    restart: always
+    environment:
+      POSTGRES_DB: suziria
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
