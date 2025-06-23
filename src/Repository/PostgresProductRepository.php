@@ -2,14 +2,14 @@
 
 namespace App\Repository;
 
-use App\DTO\CreateProductDTO;
+use App\DTO\ProductDTO;
 use App\Database;
 use Ramsey\Uuid\Uuid;
 use PDO;
 
 class PostgresProductRepository
 {
-    public function create(CreateProductDTO $dto): string
+    public function create(ProductDTO $dto): string
     {
         $pdo = Database::getConnection();
         $id = Uuid::uuid4()->toString();

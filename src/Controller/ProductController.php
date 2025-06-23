@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\DTO\CreateProductDTO;
+use App\DTO\ProductDTO;
 use App\Repository\PostgresProductRepository;
 use App\Validator\DTOValidator;
 
@@ -13,7 +13,7 @@ class ProductController
         $input = json_decode(file_get_contents('php://input'), true);
 
         try {
-            $dto = new CreateProductDTO(
+            $dto = new ProductDTO(
                 $input['name'] ?? '',
                 $input['price'] ?? null,
                 $input['category'] ?? '',

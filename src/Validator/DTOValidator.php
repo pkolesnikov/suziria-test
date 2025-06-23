@@ -2,26 +2,37 @@
 
 namespace App\Validator;
 
-use App\DTO\CreateProductDTO;
+use App\Attributes\Required;
+use App\Attributes\MinLength;
+use App\Attributes\IsNumeric;
+use ReflectionClass;
+use ReflectionProperty;
+use InvalidArgumentException;
 
 class DTOValidator
 {
-    public function validate(CreateProductDTO $dto): void
+    public static function validate(object $dto): void
     {
-        if (empty($dto->name)) {
-            throw new \InvalidArgumentException('Name is required');
-        }
+        $reflection = new ReflectionClass($dto);
 
-        if (!is_numeric($dto->price) || $dto->price <= 0) {
-            throw new \InvalidArgumentException('Price must be positive number');
-        }
+        foreach ($reflection->getProperties() as $property) {
+            $value = $property->getValue($dto);
 
-        if (empty($dto->category)) {
-            throw new \InvalidArgumentException('Category is required');
-        }
+            foreach ($property->getAttributes() as $attribute) {
+                $instance = $attribute->newInstance();
 
-        if (!is_array($dto->attributes)) {
-            throw new \InvalidArgumentException('Attributes must be an array');
+                if ($instance instanceof Required && empty($value)) {
+                    throw new InvalidArgumentException("{$property->getName()} is required.");
+                }
+
+                if ($instance instanceof MinLength && strlen($value) < $instance->length) {
+                    throw new InvalidArgumentException("{$property->getName()} must be at least {$instance->length} characters.");
+                }
+
+                if ($instance instanceof IsNumeric && !is_numeric($value)) {
+                    throw new InvalidArgumentException("{$property->getName()} must be numeric.");
+                }
+            }
         }
     }
 }

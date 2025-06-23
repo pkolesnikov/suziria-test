@@ -1,14 +1,14 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use App\DTO\CreateProductDTO;
+use App\DTO\ProductDTO;
 use App\Validator\DTOValidator;
 
 final class DTOValidatorTest extends TestCase
 {
     public function testValidProductPasses(): void
     {
-        $dto = new CreateProductDTO('Book', 19.99, 'books', ['author' => 'John']);
+        $dto = new ProductDTO('Book', 19.99, 'books', ['author' => 'John']);
         $validator = new DTOValidator();
 
         $this->expectNotToPerformAssertions();
@@ -17,7 +17,7 @@ final class DTOValidatorTest extends TestCase
 
     public function testInvalidProductFails(): void
     {
-        $dto = new CreateProductDTO('', -5, '', []);
+        $dto = new ProductDTO('', -5, '', []);
         $validator = new DTOValidator();
 
         $this->expectException(InvalidArgumentException::class);

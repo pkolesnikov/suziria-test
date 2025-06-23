@@ -1,127 +1,108 @@
-# 🧪 Suziria Test Project
+# Suziria Test Project
 
-A demo PHP + PostgreSQL REST API project, ready to run with Docker Compose.  
-Includes automatic database setup, seeding, and tests.
+A minimal PHP 8.2+ REST API for managing products, built without frameworks like Laravel or Symfony.  
+Features request validation via custom PHP attributes, DTOs, and repository pattern. Includes automated DB setup and tests via Docker.
 
----
+## 🧱 Stack
 
-## 🚀 Tech Stack
-
-- PHP 8.2
+- PHP 8.2+
 - PostgreSQL 15
-- Apache (mod_php)
+- Docker & Docker Compose
 - Composer
-- Guzzle (HTTP client)
-- PHPUnit (testing)
-- Docker + Docker Compose
+- PHPUnit
+- Guzzle (for integration testing)
 
 ---
 
-## 📁 Project Structure
+## 🚀 Quick Start
 
-```
-suziria-test/
-├── docker-compose.yml
-├── Dockerfile
-├── .env
-├── composer.json
-├── composer.lock
-├── phpunit.xml
-├── public/                 # Entry point: index.php
-├── src/
-│   ├── Controller/
-│   ├── Repository/
-│   ├── DTO/
-│   ├── Database.php
-│   └── setup.php          # migration + seeding
-├── tests/
-│   ├── Integration/
-│   └── Unit/
-└── vendor/
-```
-
----
-
-## ⚙️ Setup & Run
-
-1. **Clone the repository:**
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/your-username/suziria-test.git
 cd suziria-test
 ```
 
-2. **Start from scratch:**
+### 2. Start the application
 
 ```bash
-docker compose down -v
-docker compose up --build -d
+docker compose up --build
 ```
 
-3. **Run setup manually (if needed):**
+This will:
 
-```bash
-docker compose exec app php ../src/setup.php
-```
+- Install all PHP dependencies via Composer
+- Run DB migrations and seed 20 products
+- Start Apache server on [http://localhost:8080](http://localhost:8080)
 
-4. **Run tests:**
+---
+
+## 🧪 Run Tests
+
+To execute all tests manually:
 
 ```bash
 docker compose exec app composer test
 ```
 
----
-
-## 🧱 Composer Commands
-
-| Command             | Description                       |
-|---------------------|-----------------------------------|
-| `composer install`  | Install dependencies              |
-| `composer setup`    | Run migrations and seed database  |
-| `composer test`     | Run PHPUnit tests                 |
+You will see unit + integration test results.
 
 ---
 
-## 🧪 API Endpoints
+## 📦 API Endpoints
 
-| Method | Path              | Description            |
-|--------|-------------------|------------------------|
-| GET    | `/products`       | Get all products       |
-| POST   | `/products`       | Create new product     |
-| GET    | `/products/{id}`  | Get product by ID      |
-| PUT    | `/products/{id}`  | Update product by ID   |
-| DELETE | `/products/{id}`  | Delete product by ID   |
+| Method | Endpoint         | Description         |
+|--------|------------------|---------------------|
+| GET    | `/products`      | List all products   |
+| GET    | `/products/{id}` | Get product by ID   |
+| POST   | `/products`      | Create product      |
+| PUT    | `/products/{id}` | Update product      |
+| DELETE | `/products/{id}` | Delete product      |
 
-Each product includes a JSON `attributes` field with custom key-value pairs.
+JSON format expected. Attributes is a nested JSON object.
 
 ---
 
-## 📬 Example Product (JSON)
+## 🧩 Features Used
 
-```json
-{
-  "name": "iPhone 15",
-  "price": 999.99,
-  "category": "electronics",
-  "attributes": {
-    "brand": "Apple",
-    "color": "black"
-  }
-}
+- Custom PHP Attributes for validation:
+  - `#[Required]`
+  - `#[MinLength]`
+  - `#[IsNumeric]`
+  - etc.
+
+- DTO classes for typed input validation
+- PDO for database access
+- Repository pattern for database logic
+- Strict typing, readonly properties, match/case, enums (PHP 8.2+)
+
+---
+
+## ✅ Done According to Test Task
+
+- [x] Docker setup
+- [x] RESTful CRUD
+- [x] DB schema & seed
+- [x] Custom Attributes
+- [x] DTOs
+- [x] Repository Pattern
+- [x] Unit & Integration Tests
+- [x] No frameworks used
+
+---
+
+## ⚙️ Environment Variables
+
+Set in `.env` (already included by Docker):
+
+```
+DB_HOST=db
+DB_PORT=5432
+DB_NAME=suziria
+DB_USER=user
+DB_PASS=password
 ```
 
 ---
 
-## ✅ Automation
-
-When Docker builds:
-
-- Database is migrated
-- Products are seeded (if empty)
-- App is ready out of the box
-
----
-
-## 📬 Feedback
-
-Feel free to create [issues](https://github.com/your-username/suziria-test/issues) or reach out directly with suggestions or bugs.
+MIT License.
