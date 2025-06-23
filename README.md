@@ -23,7 +23,12 @@ git clone https://github.com/pkolesnikov/suziria-test.git
 cd suziria-test
 ```
 
-### 2. Start the application
+### 2.  Install dependencies:
+```bash
+composer install
+```
+
+### 3. Start the application
 
 ```bash
 docker compose up --build
