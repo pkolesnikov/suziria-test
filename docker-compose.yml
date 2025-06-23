@@ -2,22 +2,19 @@ services:
   app:
     build:
       context: ./php
-    container_name: suziria_test
-    volumes:
-      - ./public:/var/www/html             
-      - ./src:/var/www/src                   
-      - ./vendor:/var/www/vendor             
-      - ./composer.json:/var/www/composer.json  
-      - ./composer.lock:/var/www/composer.lock 
     ports:
       - "8080:80"
-    depends_on:
-      - db
+    volumes:
+      - ./public:/var/www/html
+      - ./src:/var/www/src
+      - ./tests:/var/www/tests
+      - ./vendor:/var/www/vendor
+      - ./composer.json:/var/www/composer.json
+      - ./phpunit.xml:/var/www/phpunit.xml
+      - ./.env:/var/www/.env
 
   db:
     image: postgres:15
-    container_name: suziria_db
-    restart: always
     environment:
       POSTGRES_DB: suziria
       POSTGRES_USER: user
@@ -26,6 +23,6 @@ services:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
-
+      - ./initdb:/docker-entrypoint-initdb.d
 volumes:
   db_data:
